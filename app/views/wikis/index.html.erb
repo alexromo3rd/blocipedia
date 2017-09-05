@@ -1,0 +1,22 @@
+<h1>Wikis</h1>
+
+<% @wikis.each do |wiki| %>
+	<h5>
+		<%= link_to wiki.title, wiki %>
+	</h5>
+	<small>
+		<strong>Created on <%= wiki.created_at.strftime('%b %d, %Y') %></strong>
+	</small>
+	<br>
+	<small>
+		<%= truncate(wiki.body, length: 200) %>
+	</small>
+
+<% end %>
+
+<br>
+<br>
+
+<% if user_signed_in? %>
+	<%= link_to "New Wiki", new_wiki_path %>
+<% end %>
