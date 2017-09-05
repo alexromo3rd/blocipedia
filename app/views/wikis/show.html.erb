@@ -1,0 +1,7 @@
+<h3><%= @wiki.title %></h3>
+<br>
+<p><%= @wiki.body %></p>
+
+<%= link_to "Back", root_path %>
+<%= link_to "Edit", edit_wiki_path(@wiki) %>
+<%= link_to "Delete", wiki_path(@wiki), method: :delete, data: { confirm: "Are you sure?" } %>
