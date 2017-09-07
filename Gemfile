@@ -31,4 +31,5 @@ group :development, :test do
   gem 'faker'
   gem 'factory_girl_rails'
   gem 'pry-rails'
+  gem 'bootsnap', require: false
 end
