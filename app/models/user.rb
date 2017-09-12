@@ -4,8 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :wikis, dependent: :destroy
-  after_initialize :set_as_standard 
-#  attr_accessible :role
+  after_initialize :set_as_standard
 
   USER_ROLES = {
     :standard => 0,
