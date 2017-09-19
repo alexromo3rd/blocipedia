@@ -12,7 +12,7 @@
   </head>
   <body class="container">
     <header class="center-text">
-      <p class="display-inline">Blocipedia</p>
+      <%= link_to "Blocipedia", root_path, :class => 'navbar-link display-inline'  %>
       <div class="display-inline float-right">
         <% if user_signed_in? %>
         Signed in as: <strong><%= current_user.email %></strong> |

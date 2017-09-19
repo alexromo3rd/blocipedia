@@ -1,6 +1,5 @@
 class ChargesController < ApplicationController
   before_action :authenticate_user!
-  after_action :set_user_as_premium
 
   def new
     @stripe_btn_data = {

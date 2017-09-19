@@ -36,6 +36,12 @@
   </div>
 <% end %>
 
+<% if current_user.role == 10 %>
+<h3>Downgrade my account</h3>
+
+<p>Want to go back to standard? <%= button_to "Downgrade Account", users_sessions_downgrade_path, action: "downgrade", data: { confirm: "Are you sure?" }, method: :patch %></p>
+<% end %>
+
 <h3>Cancel my account</h3>
 
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
