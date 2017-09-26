@@ -1,17 +1,10 @@
 class WikiPolicy < ApplicationPolicy
   class Scope < Scope
-    attr_reader :user, :scope
-
-    def initialize(user, scope)
-      @user  = user
-      @scope = scope
-    end
-
     def resolve
-      if user.admin?
+      if User.user_roles == :admin
         scope.all
       else
-        scope.where(published: true)
+        scope.where(private: false)
       end
     end
   end

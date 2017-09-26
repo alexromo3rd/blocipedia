@@ -1,6 +1,6 @@
 <h1>Wikis</h1>
 
-<% @wikis.each do |wiki| %>
+<% policy_scope(@wikis).each do |wiki| %>
   <h5>
     <%= link_to wiki.title, wiki %>
   </h5>
