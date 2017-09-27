@@ -3,7 +3,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def downgrade
     @user = current_user
-    @user.update_attribute(:role, 0)
+    @user.downgrade!
 
     if @user.save
       flash[:notice] = "You have been downgraded to Standard user."

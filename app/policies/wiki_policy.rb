@@ -1,7 +1,7 @@
 class WikiPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if User.user_roles == :admin
+      if user.role_name == :premium || user.role_name == :admin
         scope.all
       else
         scope.where(private: false)
@@ -9,7 +9,23 @@ class WikiPolicy < ApplicationPolicy
     end
   end
 
-  def update?
-    user.admin? or not post.published?
+  def index?
+    user.present?
+  end
+
+  def create?
+    true
+  end
+
+  def new?
+    create?
+  end
+
+  def edit?
+    update?
+  end
+
+  def destroy?
+    user.present?
   end
 end
