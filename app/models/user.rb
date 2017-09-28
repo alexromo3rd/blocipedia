@@ -12,6 +12,16 @@ class User < ActiveRecord::Base
     :admin => 20
   }
 
+  def downgrade!
+    self.set_as_standard
+    self.save!
+
+    # publicize their wikis
+    self.wikis.each do |wiki|
+      wiki.update_attribute(:private, false)
+    end
+  end
+
   def set_as_standard
     self.role = USER_ROLES[:standard]
   end
