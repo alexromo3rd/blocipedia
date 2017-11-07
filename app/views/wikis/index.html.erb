@@ -9,7 +9,7 @@
   </small>
   <br>
   <small>
-    <%= truncate(wiki.body, length: 200) %>
+    <%= truncate(markdown(wiki.body), length: 200) %>
   </small>
 
 <% end %>

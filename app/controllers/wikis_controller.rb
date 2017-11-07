@@ -27,6 +27,7 @@ class WikisController < ApplicationController
     else
       flash.now[:alert] = "Error creating Wiki. Please try again."
     end
+    render :show
   end
 
   def edit

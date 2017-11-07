@@ -4,7 +4,7 @@ class WikiPolicy < ApplicationPolicy
       if user.role_name == :premium || user.role_name == :admin
         scope.all
       else
-        scope.where(private: false)
+        scope.where(private: [nil, false])
       end
     end
   end
