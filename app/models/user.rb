@@ -3,7 +3,10 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :wikis, dependent: :destroy
+  has_many :collaborators
+  has_many :wikis, through: :collaborators
+
+
   after_initialize :set_as_standard, :if => :new_record?
 
   USER_ROLES = {
@@ -18,8 +21,13 @@ class User < ActiveRecord::Base
 
     # publicize their wikis
     self.wikis.each do |wiki|
-      wiki.update_attribute(:private, false)
+      wiki.update_attribute(:private_wiki, false)
     end
+  end
+
+  def upgrade!
+    self.set_as_premium
+    self.save!
   end
 
   def set_as_standard

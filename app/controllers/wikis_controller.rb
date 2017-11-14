@@ -1,10 +1,9 @@
 class WikisController < ApplicationController
   before_action :authenticate_user!
-  after_action :verify_authorized
+  after_action :verify_authorized, except: :index
 
   def index
     @wikis = policy_scope(Wiki)
-    authorize @wikis
   end
 
   def show
@@ -23,15 +22,17 @@ class WikisController < ApplicationController
     authorize @wiki
 
     if @wiki.save
-      redirect_to @wiki, notice: "Wiki was saves successfully."
+      redirect_to @wiki, notice: "Wiki was saved successfully."
     else
       flash.now[:alert] = "Error creating Wiki. Please try again."
+      render :new
     end
-    render :show
   end
 
   def edit
     @wiki = Wiki.find(params[:id])
+    @users = User.all
+    @collaborator = Collaborator.new
     authorize @wiki
   end
 
@@ -40,6 +41,7 @@ class WikisController < ApplicationController
     authorize @wiki
 
     @wiki.assign_attributes(wiki_params)
+    @wiki.user_ids = params[:wiki][:user_ids] if params[:wiki][:user_ids].present?
 
     if @wiki.save
       flash[:notice] = "Wiki was updated."
@@ -66,6 +68,6 @@ class WikisController < ApplicationController
   private
 
   def wiki_params
-    params.require(:wiki).permit(:title, :body, :private_wiki)
+    params.require(:wiki).permit(:title, :body, :private_wiki, :user, :user_ids)
   end
 end

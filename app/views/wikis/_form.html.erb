@@ -4,4 +4,9 @@
       <%= f.check_box :private_wiki %> Private wiki
     <% end %>
   </div>
+
+  <% if @wiki.private_wiki %>
+     <%= render partial: 'collaborators/form', locals: { f: f } %>
+  <% end %>
+
 <% end %>

@@ -14,6 +14,19 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
+  def upgrade
+    @user = current_user
+    @user.upgrade!
+
+    if @user.save
+      flash[:notice] = "You have been upgraded to Premium user."
+      redirect_to root_path
+    else
+      flash.now[:alert] = "Error upgrading. Please try again."
+      render :edit
+    end
+  end
+
   # GET /resource/sign_in
   # def new
   #   super
