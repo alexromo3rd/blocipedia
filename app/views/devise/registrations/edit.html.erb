@@ -36,6 +36,12 @@
   </div>
 <% end %>
 
+<% if current_user.role_name == :standard %>
+<h3>Upgrade my account</h3>
+
+<p>Want to go upgrade to premium? <%= button_to "Upgrade Account", users_sessions_upgrade_path, method: :patch %></p>
+<% end %>
+
 <% if current_user.role == 10 %>
 <h3>Downgrade my account</h3>
 
@@ -46,4 +52,4 @@
 
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
-<%= link_to "Back", :back %>
+<%= link_to "Back", root_path %>
